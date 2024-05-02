@@ -55,7 +55,7 @@ curl https://get.ignite.com/username/loan@latest! | sudo bash
 
 ---
 
-## Link
+## Guide Link
 
 ```
 https://docs.ignite.com/guide/loan/intro
@@ -103,7 +103,7 @@ genesis:
         mint_denom: uloan
 ```
 
-### Connect Keplr with Denom Decimals
+## Connect Keplr with Denom Decimals
 
 ```ts
 // set denom
@@ -122,7 +122,7 @@ await client.useKeplr({
 });
 ```
 
-### Send Coin
+## Send Coin
 
 ```shell
 loand tx bank send alice loan1hgetjlxqkv5dssgv6z4xzxtqfpfu0gm779xyry 1000000uloan --chain-id loan
