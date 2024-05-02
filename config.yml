@@ -4,9 +4,11 @@ accounts:
   - name: alice
     coins:
       - 200000000uloan
+    mnemonic: umbrella mushroom luggage metal traffic slight faculty volcano mansion desert unaware sniff label artwork ozone final thunder crowd all suit wool protect ring describe
   - name: bob
     coins:
       - 100000000uloan
+    mnemonic: loud donkey use home resist clinic base feature figure erode birth slogan draw relief joke weasel rough evolve mind feature hat basket march another
 faucet:
   name: bob
   coins:
