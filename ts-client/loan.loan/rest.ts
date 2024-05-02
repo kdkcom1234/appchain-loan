@@ -20,8 +20,68 @@ export interface Status {
   details?: { "@type"?: string }[];
 }
 
+export interface PageRequest {
+  /** @format byte */
+  key?: string;
+
+  /** @format uint64 */
+  offset?: string;
+
+  /** @format uint64 */
+  limit?: string;
+  count_total?: boolean;
+  reverse?: boolean;
+}
+
+export interface PageResponse {
+  /** @format byte */
+  next_key?: string;
+
+  /** @format uint64 */
+  total?: string;
+}
+
+export interface QueryAllLoanResponse {
+  Loan?: {
+    id?: string;
+    amount?: string;
+    fee?: string;
+    collateral?: string;
+    deadline?: string;
+    state?: string;
+    borrower?: string;
+    lender?: string;
+  }[];
+  pagination?: { next_key?: string; total?: string };
+}
+
+export interface QueryGetLoanResponse {
+  Loan?: {
+    id?: string;
+    amount?: string;
+    fee?: string;
+    collateral?: string;
+    deadline?: string;
+    state?: string;
+    borrower?: string;
+    lender?: string;
+  };
+}
+
 export interface QueryParamsResponse {
   params?: object;
+}
+
+export interface LoanLoan {
+  /** @format uint64 */
+  id?: string;
+  amount?: string;
+  fee?: string;
+  collateral?: string;
+  deadline?: string;
+  state?: string;
+  borrower?: string;
+  lender?: string;
 }
 
 export type LoanParams = object;
@@ -154,6 +214,73 @@ export class HttpClient<SecurityDataType = unknown> {
  * @title HTTP API Console loan.loan
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryLoanAll
+   * @request GET:/loan/loan/loan
+   */
+  queryLoanAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<
+      {
+        Loan?: {
+          id?: string;
+          amount?: string;
+          fee?: string;
+          collateral?: string;
+          deadline?: string;
+          state?: string;
+          borrower?: string;
+          lender?: string;
+        }[];
+        pagination?: { next_key?: string; total?: string };
+      },
+      { code?: number; message?: string; details?: { "@type"?: string }[] }
+    >({
+      path: `/loan/loan/loan`,
+      method: "GET",
+      query: query,
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryLoan
+   * @request GET:/loan/loan/loan/{id}
+   */
+  queryLoan = (id: string, params: RequestParams = {}) =>
+    this.request<
+      {
+        Loan?: {
+          id?: string;
+          amount?: string;
+          fee?: string;
+          collateral?: string;
+          deadline?: string;
+          state?: string;
+          borrower?: string;
+          lender?: string;
+        };
+      },
+      { code?: number; message?: string; details?: { "@type"?: string }[] }
+    >({
+      path: `/loan/loan/loan/${id}`,
+      method: "GET",
+      ...params,
+    });
+
   /**
    * No description
    *

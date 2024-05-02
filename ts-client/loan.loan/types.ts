@@ -1,7 +1,7 @@
-import { Params } from "./types/loan/loan/params"
+import { Loan } from "./types/loan/loan/loan"
 
 
 export {     
-    Params,
+    Loan,
     
  }
