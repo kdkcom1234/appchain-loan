@@ -86,6 +86,8 @@ export interface LoanLoan {
 
 export type LoanParams = object;
 
+export type MsgApproveLoanResponse = object;
+
 export type MsgRequestLoanResponse = object;
 
 export type MsgUpdateParamsResponse = object;

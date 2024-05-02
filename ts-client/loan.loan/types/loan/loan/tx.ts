@@ -1,4 +1,5 @@
 /* eslint-disable */
+import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Params } from "./params";
 
@@ -28,6 +29,14 @@ export interface MsgRequestLoan {
 }
 
 export interface MsgRequestLoanResponse {
+}
+
+export interface MsgApproveLoan {
+  creator: string;
+  id: number;
+}
+
+export interface MsgApproveLoanResponse {
 }
 
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -311,6 +320,123 @@ export const MsgRequestLoanResponse = {
   },
 };
 
+function createBaseMsgApproveLoan(): MsgApproveLoan {
+  return { creator: "", id: 0 };
+}
+
+export const MsgApproveLoan = {
+  encode(message: MsgApproveLoan, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgApproveLoan {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgApproveLoan();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.creator = reader.string();
+          continue;
+        case 2:
+          if (tag !== 16) {
+            break;
+          }
+
+          message.id = longToNumber(reader.uint64() as Long);
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgApproveLoan {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      id: isSet(object.id) ? Number(object.id) : 0,
+    };
+  },
+
+  toJSON(message: MsgApproveLoan): unknown {
+    const obj: any = {};
+    if (message.creator !== "") {
+      obj.creator = message.creator;
+    }
+    if (message.id !== 0) {
+      obj.id = Math.round(message.id);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgApproveLoan>, I>>(base?: I): MsgApproveLoan {
+    return MsgApproveLoan.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<MsgApproveLoan>, I>>(object: I): MsgApproveLoan {
+    const message = createBaseMsgApproveLoan();
+    message.creator = object.creator ?? "";
+    message.id = object.id ?? 0;
+    return message;
+  },
+};
+
+function createBaseMsgApproveLoanResponse(): MsgApproveLoanResponse {
+  return {};
+}
+
+export const MsgApproveLoanResponse = {
+  encode(_: MsgApproveLoanResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgApproveLoanResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgApproveLoanResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgApproveLoanResponse {
+    return {};
+  },
+
+  toJSON(_: MsgApproveLoanResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgApproveLoanResponse>, I>>(base?: I): MsgApproveLoanResponse {
+    return MsgApproveLoanResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<MsgApproveLoanResponse>, I>>(_: I): MsgApproveLoanResponse {
+    const message = createBaseMsgApproveLoanResponse();
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   /**
@@ -319,6 +445,7 @@ export interface Msg {
    */
   UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
   RequestLoan(request: MsgRequestLoan): Promise<MsgRequestLoanResponse>;
+  ApproveLoan(request: MsgApproveLoan): Promise<MsgApproveLoanResponse>;
 }
 
 export const MsgServiceName = "loan.loan.Msg";
@@ -330,6 +457,7 @@ export class MsgClientImpl implements Msg {
     this.rpc = rpc;
     this.UpdateParams = this.UpdateParams.bind(this);
     this.RequestLoan = this.RequestLoan.bind(this);
+    this.ApproveLoan = this.ApproveLoan.bind(this);
   }
   UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
@@ -342,11 +470,36 @@ export class MsgClientImpl implements Msg {
     const promise = this.rpc.request(this.service, "RequestLoan", data);
     return promise.then((data) => MsgRequestLoanResponse.decode(_m0.Reader.create(data)));
   }
+
+  ApproveLoan(request: MsgApproveLoan): Promise<MsgApproveLoanResponse> {
+    const data = MsgApproveLoan.encode(request).finish();
+    const promise = this.rpc.request(this.service, "ApproveLoan", data);
+    return promise.then((data) => MsgApproveLoanResponse.decode(_m0.Reader.create(data)));
+  }
 }
 
 interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
+
+declare const self: any | undefined;
+declare const window: any | undefined;
+declare const global: any | undefined;
+const tsProtoGlobalThis: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
@@ -358,6 +511,18 @@ export type DeepPartial<T> = T extends Builtin ? T
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+  }
+  return long.toNumber();
+}
+
+if (_m0.util.Long !== Long) {
+  _m0.util.Long = Long as any;
+  _m0.configure();
+}
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;
