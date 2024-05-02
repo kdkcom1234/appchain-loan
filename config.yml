@@ -1,24 +1,29 @@
-version: 1
 validation: sovereign
+version: 1
 accounts:
   - name: alice
     coins:
-      - 200000000loan
+      - 200000000uloan
   - name: bob
     coins:
-      - 100000000loan
-client:
-  openapi:
-    path: docs/static/openapi.yml
+      - 100000000uloan
 faucet:
   name: bob
   coins:
-    - 100000loan
+    - 100000uloan
+client:
+  typescript:
+    path: ts-client
+  openapi:
+    path: docs/static/openapi.yml
 validators:
   - name: alice
-    bonded: 100000000loan
+    bonded: 100000000uloan
 genesis:
   app_state:
     staking:
       params:
-        bond_denom: "loan"
+        bond_denom: uloan
+    mint:
+      params:
+        mint_denom: uloan
