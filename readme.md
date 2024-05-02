@@ -127,3 +127,15 @@ await client.useKeplr({
 ```shell
 loand tx bank send alice loan1hgetjlxqkv5dssgv6z4xzxtqfpfu0gm779xyry 1000000uloan --chain-id loan
 ```
+
+## Msg Service(Biz Logics)
+
+```shell
+/x/loan/keeper/msg_server_request_loan.go
+```
+
+## Msg Validater(ValidateBasic)
+
+```shell
+/x/loan/types/message_request_loan.go
+```
