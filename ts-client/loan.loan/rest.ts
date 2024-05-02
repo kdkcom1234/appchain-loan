@@ -88,6 +88,8 @@ export type LoanParams = object;
 
 export type MsgApproveLoanResponse = object;
 
+export type MsgCancelLoanResponse = object;
+
 export type MsgLiquidateLoanResponse = object;
 
 export type MsgRepayLoanResponse = object;

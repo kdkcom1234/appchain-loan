@@ -308,6 +308,8 @@ definitions:
     type: object
   MsgApproveLoanResponse:
     type: object
+  MsgCancelLoanResponse:
+    type: object
   MsgLiquidateLoanResponse:
     type: object
   MsgRepayLoanResponse:
