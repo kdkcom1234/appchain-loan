@@ -9,3 +9,4 @@ release/
 *.ign
 frontend/node_modules
 ts-client/node_modules
+.github/workflows
