@@ -100,3 +100,28 @@ genesis:
       params:
         mint_denom: uloan
 ```
+
+### Connect Keplr
+
+```ts
+// set denom
+await client.useKeplr({
+  stakeCurrency: {
+    coinDenom: "LOAN",
+    coinMinimalDenom: "uloan",
+    coinDecimals: 6,
+  },
+  currencies: [
+    { coinDenom: "LOAN", coinMinimalDenom: "uloan", coinDecimals: 6 },
+  ],
+  feeCurrencies: [
+    { coinDenom: "LOAN", coinMinimalDenom: "uloan", coinDecimals: 6 },
+  ],
+});
+```
+
+### Send Coin
+
+```shell
+loand tx bank send alice loan1hgetjlxqkv5dssgv6z4xzxtqfpfu0gm779xyry 1000000uloan --chain-id loan
+```

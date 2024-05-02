@@ -13,7 +13,12 @@ const client = new Client(
 let account: AccountData | undefined;
 
 document.querySelector("#connect")?.addEventListener("click", async () => {
-  await client.useKeplr()
+  await client.useKeplr(
+    {
+      stakeCurrency: { coinDenom: 'LOAN', coinMinimalDenom: 'uloan', coinDecimals: 6 },
+      currencies: [{ coinDenom: 'LOAN', coinMinimalDenom: 'uloan', coinDecimals: 6 }],
+      feeCurrencies: [{ coinDenom: 'LOAN', coinMinimalDenom: 'uloan', coinDecimals: 6 }],
+    })
   const accounts = (await client.signer?.getAccounts())
   account = accounts ? accounts[0] : undefined
   console.log(client.signer?.getAccounts)
