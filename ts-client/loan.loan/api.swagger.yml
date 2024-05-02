@@ -306,6 +306,8 @@ definitions:
         type: string
   loan.Params:
     type: object
+  MsgRequestLoanResponse:
+    type: object
   MsgUpdateParamsResponse:
     type: object
   Params:

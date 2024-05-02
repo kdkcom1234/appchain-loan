@@ -8,11 +8,7 @@ export const protobufPackage = "loan.loan";
 export interface MsgUpdateParams {
   /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
   authority: string;
-  /**
-   * params defines the module parameters to update.
-   *
-   * NOTE: All parameters must be supplied.
-   */
+  /** NOTE: All parameters must be supplied. */
   params: Params | undefined;
 }
 
@@ -21,6 +17,17 @@ export interface MsgUpdateParams {
  * MsgUpdateParams message.
  */
 export interface MsgUpdateParamsResponse {
+}
+
+export interface MsgRequestLoan {
+  creator: string;
+  amount: string;
+  fee: string;
+  collateral: string;
+  deadline: string;
+}
+
+export interface MsgRequestLoanResponse {
 }
 
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -142,6 +149,168 @@ export const MsgUpdateParamsResponse = {
   },
 };
 
+function createBaseMsgRequestLoan(): MsgRequestLoan {
+  return { creator: "", amount: "", fee: "", collateral: "", deadline: "" };
+}
+
+export const MsgRequestLoan = {
+  encode(message: MsgRequestLoan, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.amount !== "") {
+      writer.uint32(18).string(message.amount);
+    }
+    if (message.fee !== "") {
+      writer.uint32(26).string(message.fee);
+    }
+    if (message.collateral !== "") {
+      writer.uint32(34).string(message.collateral);
+    }
+    if (message.deadline !== "") {
+      writer.uint32(42).string(message.deadline);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRequestLoan {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgRequestLoan();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.creator = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.amount = reader.string();
+          continue;
+        case 3:
+          if (tag !== 26) {
+            break;
+          }
+
+          message.fee = reader.string();
+          continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
+
+          message.collateral = reader.string();
+          continue;
+        case 5:
+          if (tag !== 42) {
+            break;
+          }
+
+          message.deadline = reader.string();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgRequestLoan {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      amount: isSet(object.amount) ? String(object.amount) : "",
+      fee: isSet(object.fee) ? String(object.fee) : "",
+      collateral: isSet(object.collateral) ? String(object.collateral) : "",
+      deadline: isSet(object.deadline) ? String(object.deadline) : "",
+    };
+  },
+
+  toJSON(message: MsgRequestLoan): unknown {
+    const obj: any = {};
+    if (message.creator !== "") {
+      obj.creator = message.creator;
+    }
+    if (message.amount !== "") {
+      obj.amount = message.amount;
+    }
+    if (message.fee !== "") {
+      obj.fee = message.fee;
+    }
+    if (message.collateral !== "") {
+      obj.collateral = message.collateral;
+    }
+    if (message.deadline !== "") {
+      obj.deadline = message.deadline;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgRequestLoan>, I>>(base?: I): MsgRequestLoan {
+    return MsgRequestLoan.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<MsgRequestLoan>, I>>(object: I): MsgRequestLoan {
+    const message = createBaseMsgRequestLoan();
+    message.creator = object.creator ?? "";
+    message.amount = object.amount ?? "";
+    message.fee = object.fee ?? "";
+    message.collateral = object.collateral ?? "";
+    message.deadline = object.deadline ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgRequestLoanResponse(): MsgRequestLoanResponse {
+  return {};
+}
+
+export const MsgRequestLoanResponse = {
+  encode(_: MsgRequestLoanResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRequestLoanResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgRequestLoanResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgRequestLoanResponse {
+    return {};
+  },
+
+  toJSON(_: MsgRequestLoanResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgRequestLoanResponse>, I>>(base?: I): MsgRequestLoanResponse {
+    return MsgRequestLoanResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<MsgRequestLoanResponse>, I>>(_: I): MsgRequestLoanResponse {
+    const message = createBaseMsgRequestLoanResponse();
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   /**
@@ -149,6 +318,7 @@ export interface Msg {
    * parameters. The authority defaults to the x/gov module account.
    */
   UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
+  RequestLoan(request: MsgRequestLoan): Promise<MsgRequestLoanResponse>;
 }
 
 export const MsgServiceName = "loan.loan.Msg";
@@ -159,11 +329,18 @@ export class MsgClientImpl implements Msg {
     this.service = opts?.service || MsgServiceName;
     this.rpc = rpc;
     this.UpdateParams = this.UpdateParams.bind(this);
+    this.RequestLoan = this.RequestLoan.bind(this);
   }
   UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdateParams", data);
     return promise.then((data) => MsgUpdateParamsResponse.decode(_m0.Reader.create(data)));
+  }
+
+  RequestLoan(request: MsgRequestLoan): Promise<MsgRequestLoanResponse> {
+    const data = MsgRequestLoan.encode(request).finish();
+    const promise = this.rpc.request(this.service, "RequestLoan", data);
+    return promise.then((data) => MsgRequestLoanResponse.decode(_m0.Reader.create(data)));
   }
 }
 
