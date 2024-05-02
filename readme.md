@@ -103,7 +103,7 @@ genesis:
         mint_denom: uloan
 ```
 
-### Connect Keplr
+### Connect Keplr with Denom Decimals
 
 ```ts
 // set denom
