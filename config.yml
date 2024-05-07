@@ -4,6 +4,7 @@ accounts:
   - name: alice
     coins:
       - 200000000uloan
+      - 10000foocoin
     mnemonic: umbrella mushroom luggage metal traffic slight faculty volcano mansion desert unaware sniff label artwork ozone final thunder crowd all suit wool protect ring describe
   - name: bob
     coins:
