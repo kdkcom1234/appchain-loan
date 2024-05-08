@@ -42,6 +42,7 @@ func initRootCmd(
 	server.AddCommands(rootCmd, app.DefaultNodeHome, newApp, appExport, addModuleInitFlags)
 
 	validateGenesisCmd := genutilcli.ValidateGenesisCmd(basicManager) // <- add this line
+	addGenesisAccountCmd := genutilcli.AddGenesisAccountCmd(app.DefaultNodeHome, txConfig.SigningContext().AddressCodec())
 
 	// add keybase, auxiliary RPC, query, genesis, and tx child commands
 	rootCmd.AddCommand(
@@ -52,6 +53,7 @@ func initRootCmd(
 		keys.Commands(),
 
 		validateGenesisCmd, // <- Add this line
+		addGenesisAccountCmd,
 	)
 }
 
