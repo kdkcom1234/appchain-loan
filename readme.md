@@ -139,3 +139,9 @@ loand tx bank send alice loan1hgetjlxqkv5dssgv6z4xzxtqfpfu0gm779xyry 1000000uloa
 ```shell
 /x/loan/types/message_request_loan.go
 ```
+
+## 배포모드로 빌드 및 배포
+
+```shell
+ignite network chain publish github.com/kdkcom1234/appchain-loan
+```
